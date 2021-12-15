@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PDDetectV1">
         <activity
+            android:name=".result"
+            android:exported="true" />
+        <activity
+            android:name=".survey"
+            android:exported="true" />
+        <activity
+            android:name=".register"
+            android:exported="true" />
+        <activity
+            android:name=".about"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
