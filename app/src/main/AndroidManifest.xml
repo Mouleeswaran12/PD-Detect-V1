@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PDDetectV1">
         <activity
+            android:name=".login"
+            android:exported="true" />
+        <activity
             android:name=".result"
             android:exported="true" />
         <activity
