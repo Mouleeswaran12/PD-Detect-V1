@@ -53,6 +53,7 @@ public class register extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Fill all the details!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
+
                 }
             }
         });
