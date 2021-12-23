@@ -34,7 +34,7 @@ public class survey extends AppCompatActivity {
     int currentProgress=10;
 
     public String loadJSONFromAsset() {
-        String json = null;
+        String json=null;
         try {
             InputStream is = this.getAssets().open("questions.json");
             int size = is.available();
@@ -42,7 +42,8 @@ public class survey extends AppCompatActivity {
             is.read(buffer);
             is.close();
             json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
+        }
+        catch (IOException ex) {
             ex.printStackTrace();
             return null;
         }
