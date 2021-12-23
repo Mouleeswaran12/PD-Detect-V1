@@ -22,7 +22,7 @@ public class register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        setContentView(R.layout.activity_register);
+       // setContentView(R.layout.activity_register);
         submit = findViewById(R.id.submit);
         name = findViewById(R.id.name);
         age = findViewById(R.id.age);
