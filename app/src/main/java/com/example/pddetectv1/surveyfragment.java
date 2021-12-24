@@ -1,9 +1,13 @@
 package com.example.pddetectv1;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,33 +84,32 @@ public class surveyfragment extends Fragment {
         }
     }
 
+    public String loadJSONFromAsset(){
+        String json;
+        try {
+            InputStream is = getActivity().getAssets().open("questions.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ViewGroup surveyroot=(ViewGroup) inflater.inflate(R.layout.fragment_surveyfragment, container, false);
-        return surveyroot;
 
-/*
-        public String loadJSONFromAsset(){
-            String json=null;
-            try {
-                InputStream is = this.getAssets().open("questions.json");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                json = new String(buffer, "UTF-8");
-            }
-            catch (IOException ex) {
-                ex.printStackTrace();
-                return null;
-            }
-            return json;
-        }
-          selected =(RadioGroup) surveyroot.findViewById(R.id.answergroup);
-          result = (Button) surveyroot.findViewById(R.id.button3);
-          questionProgress =(ProgressBar) surveyroot.findViewById(R.id.progressBar);
+        selected =(RadioGroup) surveyroot.findViewById(R.id.answergroup);
+        result = (Button) surveyroot.findViewById(R.id.button3);
+        questionProgress =(ProgressBar) surveyroot.findViewById(R.id.progressBar);
         questionProgress.setMax(120);
         questionProgress.setProgress(currentProgress);
         result.setVisibility(View.INVISIBLE);
@@ -114,7 +117,7 @@ public class surveyfragment extends Fragment {
         for(int i=0;i<12;i++)
             score[i]=-1;
 
-        TextView question =(TextView) surveyroot.findViewById(R.id.textview4);
+        question =(TextView) surveyroot.findViewById(R.id.textview4);
         opt1 =(RadioButton) surveyroot.findViewById(R.id.option1);
         opt2 = (RadioButton) surveyroot.findViewById(R.id.option2);
         opt3 = (RadioButton) surveyroot.findViewById(R.id.option3);
@@ -129,7 +132,6 @@ public class surveyfragment extends Fragment {
         try{
             jsonObject = new JSONObject(loadJSONFromAsset());
             jsonArray = jsonObject.getJSONArray("questions");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -179,13 +181,19 @@ public class surveyfragment extends Fragment {
                 for (int s : score){
                     sumScore += s;
                 }
-                /*Intent loadintent = new Intent(survey.this, MainActivity.class);
-                loadintent.putExtra("type", "severity");
-                loadintent.putExtra("score", sumScore);
-                startActivity(loadintent);
+                SharedPreferences scoreData = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
+                SharedPreferences.Editor profileEdit = scoreData.edit();
+                try{
+                    profileEdit.putString("score", score.toString());
+                    profileEdit.commit();
+                    Toast.makeText(getActivity(), "Survey Submitted. Check the Result Tab!", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
             }
         });
-
+        return surveyroot;
     }
     public void questionCall(int n)
     {
@@ -228,6 +236,6 @@ public class surveyfragment extends Fragment {
             nxt.setVisibility(View.VISIBLE);
             result.setVisibility(View.INVISIBLE);
         }
-*/
+
     }
 }

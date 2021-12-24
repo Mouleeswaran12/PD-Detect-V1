@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".surveyfragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".survey">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,7 +95,7 @@
                     android:padding="16dp"
                     android:text="Option1"
                     android:textAlignment="center"
-                    android:textColor="@color/purple_200"
+                    android:textColor="@drawable/textcolor"
                     android:textSize="16sp">
 
 
