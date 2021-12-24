@@ -87,7 +87,7 @@ public class surveyfragment extends Fragment {
         ViewGroup surveyroot=(ViewGroup) inflater.inflate(R.layout.fragment_surveyfragment, container, false);
         return surveyroot;
 
-
+/*
         public String loadJSONFromAsset(){
             String json=null;
             try {
@@ -183,7 +183,7 @@ public class surveyfragment extends Fragment {
                 loadintent.putExtra("type", "severity");
                 loadintent.putExtra("score", sumScore);
                 startActivity(loadintent);
-            */}
+            }
         });
 
     }
@@ -228,6 +228,6 @@ public class surveyfragment extends Fragment {
             nxt.setVisibility(View.VISIBLE);
             result.setVisibility(View.INVISIBLE);
         }
-
+*/
     }
 }

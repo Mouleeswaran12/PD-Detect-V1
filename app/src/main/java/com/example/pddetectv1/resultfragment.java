@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +24,7 @@ public class resultfragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    TextView hyscore,uprsscore,pdgrade;
 
     public resultfragment() {
         // Required empty public constructor
@@ -59,6 +61,12 @@ public class resultfragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_resultfragment, container, false);
+        ViewGroup resultgroup=(ViewGroup) inflater.inflate(R.layout.fragment_resultfragment, container, false);
+        hyscore=(TextView) resultgroup.findViewById(R.id.hyscore);
+        uprsscore=(TextView) resultgroup.findViewById(R.id.uprsscore);
+        pdgrade=(TextView) resultgroup.findViewById(R.id.pdgrade);
+
+        return resultgroup;
+
     }
 }
