@@ -1,5 +1,7 @@
 package com.example.pddetectv1;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -66,6 +68,9 @@ public class resultfragment extends Fragment {
         uprsscore=(TextView) resultgroup.findViewById(R.id.uprsscore);
         pdgrade=(TextView) resultgroup.findViewById(R.id.pdgrade);
 
+        SharedPreferences profileCheck = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
+        Float finalScore = profileCheck.getFloat("finalScore",0);
+        uprsscore.setText(finalScore.toString());
         return resultgroup;
 
     }

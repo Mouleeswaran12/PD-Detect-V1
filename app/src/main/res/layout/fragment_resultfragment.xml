@@ -42,6 +42,7 @@
         android:textAlignment="center"
         android:textSize="20dp"
         android:textStyle="bold" />
+
     <TextView
         android:id="@+id/hyscore"
         android:layout_width="wrap_content"

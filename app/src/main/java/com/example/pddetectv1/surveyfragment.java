@@ -53,6 +53,9 @@ public class surveyfragment extends Fragment {
     Integer[] score;
     int currentProgress=10;
 
+    int totalScore = 56;
+
+
     public surveyfragment() {
         // Required empty public constructor
     }
@@ -181,11 +184,14 @@ public class surveyfragment extends Fragment {
                 for (int s : score){
                     sumScore += s;
                 }
+                Float finalScore = new Float(sumScore);
+                finalScore = finalScore/totalScore * 100;
+
                 SharedPreferences scoreData = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
-                SharedPreferences.Editor profileEdit = scoreData.edit();
+                SharedPreferences.Editor scoreEdit = scoreData.edit();
                 try{
-                    profileEdit.putString("score", score.toString());
-                    profileEdit.commit();
+                    scoreEdit.putFloat("finalScore", finalScore);
+                    scoreEdit.commit();
                     Toast.makeText(getActivity(), "Survey Submitted. Check the Result Tab!", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
