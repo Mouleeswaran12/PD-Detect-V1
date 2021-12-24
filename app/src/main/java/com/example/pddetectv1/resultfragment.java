@@ -1,6 +1,7 @@
 package com.example.pddetectv1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,8 +71,20 @@ public class resultfragment extends Fragment {
         pdgrade=(TextView) resultgroup.findViewById(R.id.pdgrade);
 
         SharedPreferences profileCheck = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
-        Float finalScore = profileCheck.getFloat("finalScore",0);
-        uprsscore.setText(finalScore.toString());
+        try {
+            Float finalScore = profileCheck.getFloat("finalScore",0);
+            Toast.makeText(getActivity(),finalScore.toString(), Toast.LENGTH_SHORT).show();
+            uprsscore.setText(finalScore.toString());
+            // sample
+
+            hyscore.setText("0.0");
+            pdgrade.setText("A");
+        }catch (Exception e)
+        {
+        }
+
+
+
         return resultgroup;
 
     }
