@@ -37,6 +37,17 @@ public class surveyfragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    TextView question;
+    RadioButton opt1,opt2,opt3,opt4;
+    ArrayList<RadioButton> options = new ArrayList<RadioButton>();
+    Button Prev, nxt,result;
+    RadioGroup selected;
+    ProgressBar questionProgress;
+    int n=0;
+    JSONObject jsonObject;
+    JSONArray jsonArray;
+    Integer[] score;
+    int currentProgress=10;
 
     public surveyfragment() {
         // Required empty public constructor
@@ -75,17 +86,7 @@ public class surveyfragment extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup surveyroot=(ViewGroup) inflater.inflate(R.layout.fragment_surveyfragment, container, false);
         return surveyroot;
-        TextView question;
-        RadioButton opt1,opt2,opt3,opt4;
-        ArrayList<RadioButton> options = new ArrayList<RadioButton>();
-        Button Prev, nxt,result;
-        RadioGroup selected;
-        ProgressBar questionProgress;
-        int n=0;
-        JSONObject jsonObject;
-        JSONArray jsonArray;
-        Integer[] score;
-        int currentProgress=10;
+
 
         public String loadJSONFromAsset(){
             String json=null;
@@ -103,9 +104,9 @@ public class surveyfragment extends Fragment {
             }
             return json;
         }
-        RadioGroup selected =(RadioGroup) surveyroot.findViewById(R.id.answergroup);
-        Button result = (Button) surveyroot.findViewById(R.id.button3);
-        ProgressBar questionProgress =(ProgressBar) surveyroot.findViewById(R.id.progressBar);
+          selected =(RadioGroup) surveyroot.findViewById(R.id.answergroup);
+          result = (Button) surveyroot.findViewById(R.id.button3);
+          questionProgress =(ProgressBar) surveyroot.findViewById(R.id.progressBar);
         questionProgress.setMax(120);
         questionProgress.setProgress(currentProgress);
         result.setVisibility(View.INVISIBLE);
@@ -114,16 +115,16 @@ public class surveyfragment extends Fragment {
             score[i]=-1;
 
         TextView question =(TextView) surveyroot.findViewById(R.id.textview4);
-        RadioButton opt1 =(RadioButton) surveyroot.findViewById(R.id.option1);
-        RadioButton opt2 = (RadioButton) surveyroot.findViewById(R.id.option2);
-        RadioButton oopt3 = (RadioButton) surveyroot.findViewById(R.id.option3);
-        RadioButton opt4 = (RadioButton) surveyroot.findViewById(R.id.option4);
+        opt1 =(RadioButton) surveyroot.findViewById(R.id.option1);
+        opt2 = (RadioButton) surveyroot.findViewById(R.id.option2);
+        opt3 = (RadioButton) surveyroot.findViewById(R.id.option3);
+        opt4 = (RadioButton) surveyroot.findViewById(R.id.option4);
         options.add(opt1);
         options.add(opt2);
         options.add(opt3);
         options.add(opt4);
-        Button Prev = (Button) surveyroot.findViewById(R.id.button);
-        Button nxt = (Button) surveyroot.findViewById(R.id.button2);
+          Prev = (Button) surveyroot.findViewById(R.id.button);
+          nxt = (Button) surveyroot.findViewById(R.id.button2);
 
         try{
             jsonObject = new JSONObject(loadJSONFromAsset());
@@ -143,7 +144,7 @@ public class surveyfragment extends Fragment {
 
                 if(selectedid==-1)
                 {
-                    Toast.makeText(getApplicationContext(), "Select any of the option", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Select any of the option", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     currentProgress = currentProgress+10;
