@@ -1,5 +1,6 @@
 package com.example.pddetectv1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +33,14 @@ public class profilefragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Button submit;
+    TextView name;
+    TextView age;
+    TextView gender;
+    TextView height;
+    TextView weight;
+    TextView passwrd;
 
     public profilefragment() {
         // Required empty public constructor
@@ -70,26 +79,25 @@ public class profilefragment extends Fragment {
         // Inflate the layout for this fragment
 
         ViewGroup rootprofile=(ViewGroup) inflater.inflate(R.layout.fragment_profilefragment, container, false);
-        return rootprofile;
-        /*
-        Button submit =(Button) rootprofile.findViewById(R.id.submit);
-        TextView name =(TextView) rootprofile.findViewById(R.id.name);
-        TextView age =(TextView) rootprofile.findViewById(R.id.age);
-        TextView gender =(TextView) rootprofile.findViewById(R.id.spinnertext);
-        TextView height =(TextView) rootprofile.findViewById(R.id.height);
-        TextView weight =(TextView) rootprofile.findViewById(R.id.weight);
-        TextView passwrd=(TextView) rootprofile.findViewById(R.id.password);
+
+        submit =(Button) rootprofile.findViewById(R.id.submit);
+        name =(TextView) rootprofile.findViewById(R.id.name);
+        age =(TextView) rootprofile.findViewById(R.id.age);
+        gender =(TextView) rootprofile.findViewById(R.id.spinnertext);
+        height =(TextView) rootprofile.findViewById(R.id.height);
+        weight =(TextView) rootprofile.findViewById(R.id.weight);
+        passwrd=(TextView) rootprofile.findViewById(R.id.password);
 
         final AutoCompleteTextView genderAuto = (AutoCompleteTextView) rootprofile.findViewById(R.id.spinnertext);
 
         ArrayList<String> genderList = getgender();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(profilefragment.this, android.R.layout.simple_spinner_item, genderList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, genderList);
         fillDetails();
         genderAuto.setAdapter(adapter);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences profileData = getSharedPreferences("profile",MODE_PRIVATE);
+                SharedPreferences profileData = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor profileEdit = profileData.edit();
                 try{
                     profileEdit.putString("name", name.getText().toString());
@@ -99,15 +107,14 @@ public class profilefragment extends Fragment {
                     profileEdit.putFloat("weight",Float.parseFloat(weight.getText().toString()));
                     profileEdit.putString("password",passwrd.getText().toString());
                     profileEdit.commit();
-                    Toast.makeText(profilefragment.this, "Profile Updated Successfilly", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Profile Updated Successfilly", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Fill all the details!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Fill all the details!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
-
                 }
-                return rootprofile;
-            }
-        });
+                }
+            });
+        return rootprofile;
     }
     private ArrayList<String> getgender()
     {
@@ -118,7 +125,7 @@ public class profilefragment extends Fragment {
     }
 
     private void fillDetails(){
-        SharedPreferences profileCheck = getSharedPreferences("profile", MODE_PRIVATE);
+        SharedPreferences profileCheck = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
         String nameValue = profileCheck.getString("name","");
         if(!nameValue.equals("")){
             // Home button enable & visible
@@ -136,8 +143,6 @@ public class profilefragment extends Fragment {
             height.setText(heightValue.toString());
             weight.setText(weightValue.toString());
             passwrd.setText(passwordretrival);
-
-        }*/
-
+        }
     }
 }
