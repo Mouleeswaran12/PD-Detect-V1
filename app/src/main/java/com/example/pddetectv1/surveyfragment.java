@@ -150,9 +150,9 @@ public class surveyfragment extends Fragment {
         Prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentProgress = currentProgress-10;
-                questionProgress.setProgress(currentProgress);
                 n = n-1;
+                currentProgress = (n+1)*10;
+                questionProgress.setProgress(currentProgress);
                 questionCall(n);
             }
         });
@@ -191,7 +191,7 @@ public class surveyfragment extends Fragment {
             return false;
         }
         else {
-            currentProgress = currentProgress+10;
+            currentProgress = (n+1)*10;
             questionProgress.setProgress(currentProgress);
             if (selectedid == opt1.getId())
                 score[n] = 0;

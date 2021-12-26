@@ -29,32 +29,6 @@
         android:layout_marginTop="-40dp"
         android:layout_marginBottom="90dp"
         android:src="@drawable/report" />
-    <TextView
-        android:id="@+id/hyscorelabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="380dp"
-        android:text="HY Score"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/hyscore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="265dp"
-        android:layout_marginTop="380dp"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/uprsscorelabel"
