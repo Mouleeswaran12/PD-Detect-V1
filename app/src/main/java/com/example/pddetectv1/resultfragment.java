@@ -13,8 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link resultfragment#newInstance} factory method to
+fra * Use the {@link resultfragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class resultfragment extends Fragment {
@@ -32,6 +31,7 @@ public class resultfragment extends Fragment {
     public resultfragment() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -57,6 +57,8 @@ public class resultfragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            Toast.makeText(getActivity(), "NEW TAB !", android.widget.Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -81,5 +83,20 @@ public class resultfragment extends Fragment {
         SharedPreferences scoreRead = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
         Float finalScore = scoreRead.getFloat("finalScore",0);
         uprsscore.setText(finalScore.toString());
+    }
+
+    // Updating Resultfragment when tab switch happens
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser){
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser)
+        {
+           // Toast.makeText(getActivity(), "Update", Toast.LENGTH_SHORT).show();
+
+            SharedPreferences scoreRead = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
+            Float finalScore = scoreRead.getFloat("finalScore",0);
+            uprsscore.setText(finalScore.toString());
+        }
     }
 }
