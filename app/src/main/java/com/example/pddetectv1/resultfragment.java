@@ -64,7 +64,6 @@ public class resultfragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Toast.makeText(getActivity(), "onCreateView!", android.widget.Toast.LENGTH_SHORT).show();
         ViewGroup resultgroup=(ViewGroup) inflater.inflate(R.layout.fragment_resultfragment, container, false);
         hyscore=(TextView) resultgroup.findViewById(R.id.hyscore);
         uprsscore=(TextView) resultgroup.findViewById(R.id.uprsscore);
@@ -76,7 +75,6 @@ public class resultfragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Toast.makeText(getActivity(), "onResume!", android.widget.Toast.LENGTH_SHORT).show();
 
         SharedPreferences scoreRead = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
         Float finalScore = scoreRead.getFloat("finalScore",0);
