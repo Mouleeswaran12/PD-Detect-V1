@@ -77,6 +77,10 @@ public class resultfragment extends Fragment {
             uprsscore.setText(finalScore.toString());
             // sample
 
+
+
+
+
             hyscore.setText("0.0");
             pdgrade.setText("A");
         }catch (Exception e)
