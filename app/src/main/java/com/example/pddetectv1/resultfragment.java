@@ -1,7 +1,6 @@
 package com.example.pddetectv1;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -28,7 +27,7 @@ public class resultfragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    TextView hyscore,uprsscore,pdgrade;
+    TextView hyscore, uprsscore, pdgrade;
 
     public resultfragment() {
         // Required empty public constructor
@@ -65,31 +64,22 @@ public class resultfragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Toast.makeText(getActivity(), "onCreateView!", android.widget.Toast.LENGTH_SHORT).show();
         ViewGroup resultgroup=(ViewGroup) inflater.inflate(R.layout.fragment_resultfragment, container, false);
         hyscore=(TextView) resultgroup.findViewById(R.id.hyscore);
         uprsscore=(TextView) resultgroup.findViewById(R.id.uprsscore);
         pdgrade=(TextView) resultgroup.findViewById(R.id.pdgrade);
 
-        SharedPreferences profileCheck = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
-        try {
-            Float finalScore = profileCheck.getFloat("finalScore",0);
-            Toast.makeText(getActivity(),finalScore.toString(), Toast.LENGTH_SHORT).show();
-            uprsscore.setText(finalScore.toString());
-            // sample
-
-
-
-
-
-            hyscore.setText("0.0");
-            pdgrade.setText("A");
-        }catch (Exception e)
-        {
-        }
-
-
-
         return resultgroup;
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Toast.makeText(getActivity(), "onResume!", android.widget.Toast.LENGTH_SHORT).show();
+
+        SharedPreferences scoreRead = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
+        Float finalScore = scoreRead.getFloat("finalScore",0);
+        uprsscore.setText(finalScore.toString());
     }
 }

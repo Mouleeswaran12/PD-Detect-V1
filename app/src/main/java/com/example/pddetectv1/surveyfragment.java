@@ -129,8 +129,8 @@ public class surveyfragment extends Fragment {
         options.add(opt2);
         options.add(opt3);
         options.add(opt4);
-          Prev = (Button) surveyroot.findViewById(R.id.button);
-          nxt = (Button) surveyroot.findViewById(R.id.button2);
+        Prev = (Button) surveyroot.findViewById(R.id.button);
+        nxt = (Button) surveyroot.findViewById(R.id.button2);
 
         try{
             jsonObject = new JSONObject(loadJSONFromAsset());
