@@ -53,7 +53,7 @@ public class surveyfragment extends Fragment {
     Integer[] score;
     int currentProgress=10;
 
-    int totalScore = 56;
+    int totalScore = 36;
 
 
     public surveyfragment() {
@@ -144,28 +144,7 @@ public class surveyfragment extends Fragment {
         nxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                int selectedid = selected.getCheckedRadioButtonId();
-
-                if(selectedid==-1)
-                {
-                    Toast.makeText(getActivity(), "Select any of the option", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    currentProgress = currentProgress+10;
-                    questionProgress.setProgress(currentProgress);
-                    if (selectedid == opt1.getId())
-                        score[n] = 0;
-                    else if (selectedid == opt2.getId())
-                        score[n] = 1;
-                    else if (selectedid == opt3.getId())
-                        score[n] = 2;
-                    else if (selectedid == opt4.getId())
-                        score[n] = 3;
-
-                    n = n + 1;
-                    questionCall(n);
-                }
+                updateScore();
             }
         });
         Prev.setOnClickListener(new View.OnClickListener() {
@@ -180,27 +159,58 @@ public class surveyfragment extends Fragment {
         result.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int sumScore = 0;
-                for (int s : score){
-                    sumScore += s;
-                }
-                Float finalScore = new Float(sumScore);
-                finalScore = finalScore/totalScore * 100;
+                if(updateScore()) {
+                    int sumScore = 0;
+                    for (int i = 0; i < 12; i++) {
+                        sumScore += score[i];
+                    }
+                    Float finalScore = new Float(sumScore);
+                    finalScore = finalScore / totalScore * 100;
 
-                SharedPreferences scoreData = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
-                SharedPreferences.Editor scoreEdit = scoreData.edit();
-                try{
-                    scoreEdit.putFloat("finalScore", finalScore);
-                    scoreEdit.commit();
-                    Toast.makeText(getActivity(), "Survey Submitted. Check the Result Tab!", Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-
+                    SharedPreferences scoreData = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor scoreEdit = scoreData.edit();
+                    try {
+                        scoreEdit.putFloat("finalScore", finalScore);
+                        scoreEdit.commit();
+                        Toast.makeText(getActivity(), "Survey Submitted. Check the Result Tab!", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
         return surveyroot;
     }
+
+    public boolean updateScore(){
+        int selectedid = selected.getCheckedRadioButtonId();
+
+        if(selectedid==-1)
+        {
+            Toast.makeText(getActivity(), "Select any of the option", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            currentProgress = currentProgress+10;
+            questionProgress.setProgress(currentProgress);
+            if (selectedid == opt1.getId())
+                score[n] = 0;
+            else if (selectedid == opt2.getId())
+                score[n] = 1;
+            else if (selectedid == opt3.getId())
+                score[n] = 2;
+            else if (selectedid == opt4.getId())
+                score[n] = 3;
+
+
+            if(n != score.length-1) {
+                n = n + 1;
+                questionCall(n);
+            }
+            return true;
+        }
+    }
+
     public void questionCall(int n)
     {
         selected.clearCheck();
@@ -232,7 +242,7 @@ public class surveyfragment extends Fragment {
         {
             Prev.setEnabled(true);
         }
-        if(n==11)
+        if(n==score.length-1)
         {
             nxt.setVisibility(View.INVISIBLE);
             result.setVisibility(View.VISIBLE);
