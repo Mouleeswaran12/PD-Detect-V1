@@ -99,15 +99,55 @@ public class profilefragment extends Fragment {
             public void onClick(View view) {
                 SharedPreferences profileData = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor profileEdit = profileData.edit();
+                String nameval,genderval,passwordval;
+                int ageval;
+                float heightval,weightval;
                 try{
-                    profileEdit.putString("name", name.getText().toString());
-                    profileEdit.putInt("age",Integer.parseInt(age.getText().toString()));
-                    profileEdit.putString("gender", gender.getText().toString());
-                    profileEdit.putFloat("height",Float.parseFloat(height.getText().toString()));
-                    profileEdit.putFloat("weight",Float.parseFloat(weight.getText().toString()));
-                    profileEdit.putString("password",passwrd.getText().toString());
-                    profileEdit.commit();
-                    Toast.makeText(getActivity(), "Profile Updated Successfilly", Toast.LENGTH_SHORT).show();
+                    nameval=name.getText().toString();
+                    genderval=gender.getText().toString();
+                    passwordval=passwrd.getText().toString();
+                    ageval=Integer.parseInt(age.getText().toString());
+                    heightval=Float.parseFloat(height.getText().toString());
+                    weightval=Float.parseFloat(weight.getText().toString());
+
+                    if(genderval.equals(""))
+                    {
+                        Toast.makeText(getActivity(), "Select Gender", Toast.LENGTH_SHORT).show();
+                    }
+                    else 
+                    {
+                        if(ageval<100 && ageval>20)
+                        {
+                            if(heightval<250&&heightval>100)
+                            {
+                                if(weightval<100&&weightval>20)
+                                {
+
+                                    profileEdit.putString("name", nameval);
+                                    profileEdit.putInt("age", ageval);
+                                    profileEdit.putString("gender", genderval);
+                                    profileEdit.putFloat("height", heightval);
+                                    profileEdit.putFloat("weight", weightval);
+                                    profileEdit.putString("password", passwordval);
+                                    profileEdit.commit();
+                                    Toast.makeText(getActivity(), "Profile Updated Successfilly", Toast.LENGTH_SHORT).show();
+
+                                }
+                                else
+                                {
+                                    Toast.makeText(getActivity(), "Enter Proper Weight", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else
+                            {
+                                Toast.makeText(getActivity(), "Enter Proper Height", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(), "Enter Proper Age", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 } catch (Exception e) {
                     Toast.makeText(getActivity(), "Fill all the details!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
