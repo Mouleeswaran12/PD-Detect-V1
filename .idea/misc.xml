@@ -3,11 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dhili/Downloads/Projects and Repos/Project Work/PD-Detect-V1/app/src/main/res/layout/fragment_resultfragment.xml" value="0.24139492753623187" />
+        <entry key="..\:/Users/dhili/Downloads/Projects and Repos/Project Work/PD-Detect-V1/app/src/main/res/layout/fragment_surveyfragment.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/drawable-v24/custom_progressbar.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/drawable-v24/radio_selected.xml" value="0.14322916666666666" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/drawable-v24/radio_selector.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_about.xml" value="0.1793478260869565" />
-        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_login.xml" value="0.22119815668202766" />
         <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_register.xml" value="0.1793478260869565" />
-        <entry key="..\:/Users/prave/AndroidStudioProjects/PD-Detect-V1/app/src/main/res/layout/activity_register.xml" value="0.176" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_result.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_splashscreen.xml" value="0.25" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_survey.xml" value="0.12708333333333333" />
       </map>
     </option>
   </component>

@@ -1,9 +1,13 @@
 package com.example.pddetectv1;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +41,20 @@ public class surveyfragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    TextView question;
+    RadioButton opt1,opt2,opt3,opt4;
+    ArrayList<RadioButton> options = new ArrayList<RadioButton>();
+    Button Prev, nxt,result;
+    RadioGroup selected;
+    ProgressBar questionProgress;
+    int n=0;
+    JSONObject jsonObject;
+    JSONArray jsonArray;
+    Integer[] score;
+    int currentProgress=10;
+
+    int totalScore = 36;
+
 
     public surveyfragment() {
         // Required empty public constructor
@@ -69,43 +87,32 @@ public class surveyfragment extends Fragment {
         }
     }
 
+    public String loadJSONFromAsset(){
+        String json;
+        try {
+            InputStream is = getActivity().getAssets().open("questions.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ViewGroup surveyroot=(ViewGroup) inflater.inflate(R.layout.fragment_surveyfragment, container, false);
-        return surveyroot;
-        TextView question;
-        RadioButton opt1,opt2,opt3,opt4;
-        ArrayList<RadioButton> options = new ArrayList<RadioButton>();
-        Button Prev, nxt,result;
-        RadioGroup selected;
-        ProgressBar questionProgress;
-        int n=0;
-        JSONObject jsonObject;
-        JSONArray jsonArray;
-        Integer[] score;
-        int currentProgress=10;
 
-        public String loadJSONFromAsset(){
-            String json=null;
-            try {
-                InputStream is = this.getAssets().open("questions.json");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                json = new String(buffer, "UTF-8");
-            }
-            catch (IOException ex) {
-                ex.printStackTrace();
-                return null;
-            }
-            return json;
-        }
-        RadioGroup selected =(RadioGroup) surveyroot.findViewById(R.id.answergroup);
-        Button result = (Button) surveyroot.findViewById(R.id.button3);
-        ProgressBar questionProgress =(ProgressBar) surveyroot.findViewById(R.id.progressBar);
+        selected =(RadioGroup) surveyroot.findViewById(R.id.answergroup);
+        result = (Button) surveyroot.findViewById(R.id.button3);
+        questionProgress =(ProgressBar) surveyroot.findViewById(R.id.progressBar);
         questionProgress.setMax(120);
         questionProgress.setProgress(currentProgress);
         result.setVisibility(View.INVISIBLE);
@@ -113,22 +120,21 @@ public class surveyfragment extends Fragment {
         for(int i=0;i<12;i++)
             score[i]=-1;
 
-        TextView question =(TextView) surveyroot.findViewById(R.id.textview4);
-        RadioButton opt1 =(RadioButton) surveyroot.findViewById(R.id.option1);
-        RadioButton opt2 = (RadioButton) surveyroot.findViewById(R.id.option2);
-        RadioButton oopt3 = (RadioButton) surveyroot.findViewById(R.id.option3);
-        RadioButton opt4 = (RadioButton) surveyroot.findViewById(R.id.option4);
+        question =(TextView) surveyroot.findViewById(R.id.textview4);
+        opt1 =(RadioButton) surveyroot.findViewById(R.id.option1);
+        opt2 = (RadioButton) surveyroot.findViewById(R.id.option2);
+        opt3 = (RadioButton) surveyroot.findViewById(R.id.option3);
+        opt4 = (RadioButton) surveyroot.findViewById(R.id.option4);
         options.add(opt1);
         options.add(opt2);
         options.add(opt3);
         options.add(opt4);
-        Button Prev = (Button) surveyroot.findViewById(R.id.button);
-        Button nxt = (Button) surveyroot.findViewById(R.id.button2);
+        Prev = (Button) surveyroot.findViewById(R.id.button);
+        nxt = (Button) surveyroot.findViewById(R.id.button2);
 
         try{
             jsonObject = new JSONObject(loadJSONFromAsset());
             jsonArray = jsonObject.getJSONArray("questions");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -138,54 +144,73 @@ public class surveyfragment extends Fragment {
         nxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                int selectedid = selected.getCheckedRadioButtonId();
-
-                if(selectedid==-1)
-                {
-                    Toast.makeText(getApplicationContext(), "Select any of the option", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    currentProgress = currentProgress+10;
-                    questionProgress.setProgress(currentProgress);
-                    if (selectedid == opt1.getId())
-                        score[n] = 0;
-                    else if (selectedid == opt2.getId())
-                        score[n] = 1;
-                    else if (selectedid == opt3.getId())
-                        score[n] = 2;
-                    else if (selectedid == opt4.getId())
-                        score[n] = 3;
-
-                    n = n + 1;
-                    questionCall(n);
-                }
+                updateScore();
             }
         });
         Prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentProgress = currentProgress-10;
-                questionProgress.setProgress(currentProgress);
                 n = n-1;
+                currentProgress = (n+1)*10;
+                questionProgress.setProgress(currentProgress);
                 questionCall(n);
             }
         });
         result.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int sumScore = 0;
-                for (int s : score){
-                    sumScore += s;
-                }
-                /*Intent loadintent = new Intent(survey.this, MainActivity.class);
-                loadintent.putExtra("type", "severity");
-                loadintent.putExtra("score", sumScore);
-                startActivity(loadintent);
-            */}
-        });
+                if(updateScore()) {
+                    int sumScore = 0;
+                    for (int i = 0; i < 12; i++) {
+                        sumScore += score[i];
+                    }
+                    Float finalScore = new Float(sumScore);
+                    finalScore = finalScore / totalScore * 100;
 
+                    SharedPreferences scoreData = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor scoreEdit = scoreData.edit();
+                    try {
+                        scoreEdit.putFloat("finalScore", finalScore);
+                        scoreEdit.commit();
+                        Toast.makeText(getActivity(), "Survey Submitted. Check the Result Tab!", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        return surveyroot;
     }
+
+    public boolean updateScore(){
+        int selectedid = selected.getCheckedRadioButtonId();
+
+        if(selectedid==-1)
+        {
+            Toast.makeText(getActivity(), "Select any of the option", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            currentProgress = (n+1)*10;
+            questionProgress.setProgress(currentProgress);
+            if (selectedid == opt1.getId())
+                score[n] = 0;
+            else if (selectedid == opt2.getId())
+                score[n] = 1;
+            else if (selectedid == opt3.getId())
+                score[n] = 2;
+            else if (selectedid == opt4.getId())
+                score[n] = 3;
+
+
+            if(n != score.length-1) {
+                n = n + 1;
+                questionCall(n);
+            }
+            return true;
+        }
+    }
+
     public void questionCall(int n)
     {
         selected.clearCheck();
@@ -217,7 +242,7 @@ public class surveyfragment extends Fragment {
         {
             Prev.setEnabled(true);
         }
-        if(n==11)
+        if(n==score.length-1)
         {
             nxt.setVisibility(View.INVISIBLE);
             result.setVisibility(View.VISIBLE);
