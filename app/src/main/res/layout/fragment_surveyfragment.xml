@@ -60,8 +60,9 @@
                 android:id="@+id/textview4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:textSize="20dp">
+                android:fontFamily="@font/doppio_one"
+                android:textSize="20dp"
+                android:textStyle="bold">
 
             </TextView>
 
@@ -95,7 +96,7 @@
                     android:layout_margin="16dp"
                     android:background="@drawable/radio_selector"
                     android:elevation="4dp"
-                    android:fontFamily="@font/doppio_one"
+                    android:fontFamily="@font/montserrat"
                     android:padding="16dp"
                     android:text="Option1"
                     android:textAlignment="center"
@@ -113,7 +114,7 @@
                     android:layout_margin="16dp"
                     android:background="@drawable/radio_selector"
                     android:elevation="4dp"
-                    android:fontFamily="@font/doppio_one"
+                    android:fontFamily="@font/montserrat"
                     android:padding="16dp"
                     android:text="Option2"
                     android:textAlignment="center"
@@ -130,7 +131,7 @@
                     android:layout_margin="16dp"
                     android:background="@drawable/radio_selector"
                     android:elevation="4dp"
-                    android:fontFamily="@font/doppio_one"
+                    android:fontFamily="@font/montserrat"
                     android:padding="16dp"
                     android:text="Option3"
                     android:textAlignment="center"
@@ -147,7 +148,7 @@
                     android:layout_margin="16dp"
                     android:background="@drawable/radio_selector"
                     android:elevation="4dp"
-                    android:fontFamily="@font/doppio_one"
+                    android:fontFamily="@font/montserrat"
                     android:padding="16dp"
                     android:text="Option4"
                     android:textAlignment="center"
