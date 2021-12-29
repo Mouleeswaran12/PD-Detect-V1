@@ -16,8 +16,8 @@
         android:layout_height="match_parent"
         tools:context=".survey">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/textview1"
@@ -99,7 +99,6 @@
                     android:fontFamily="@font/montserrat"
                     android:padding="16dp"
                     android:text="Option1"
-                    android:textAlignment="center"
                     android:textColor="@drawable/textcolor"
                     android:textSize="16sp">
 
@@ -117,7 +116,6 @@
                     android:fontFamily="@font/montserrat"
                     android:padding="16dp"
                     android:text="Option2"
-                    android:textAlignment="center"
                     android:textColor="@drawable/textcolor"
                     android:textSize="16sp">
 
@@ -134,7 +132,6 @@
                     android:fontFamily="@font/montserrat"
                     android:padding="16dp"
                     android:text="Option3"
-                    android:textAlignment="center"
                     android:textColor="@drawable/textcolor"
                     android:textSize="16sp">
 
@@ -151,7 +148,6 @@
                     android:fontFamily="@font/montserrat"
                     android:padding="16dp"
                     android:text="Option4"
-                    android:textAlignment="center"
                     android:textColor="@drawable/textcolor"
                     android:textSize="16sp">
 
