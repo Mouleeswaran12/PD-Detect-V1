@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,6 +111,10 @@ public class profilefragment extends Fragment {
                     heightval=Float.parseFloat(height.getText().toString());
                     weightval=Float.parseFloat(weight.getText().toString());
 
+                    Pattern uppercase = Pattern.compile("[A-Z]");
+                    Pattern lowercase = Pattern.compile("[a-z]");
+                    Pattern digit = Pattern.compile("[0-9]");
+
                     if(genderval.equals(""))
                     {
                         Toast.makeText(getActivity(), "Select Gender", Toast.LENGTH_SHORT).show();
@@ -122,15 +127,21 @@ public class profilefragment extends Fragment {
                             {
                                 if(weightval<100&&weightval>20)
                                 {
+                                    if(!lowercase.matcher(passwordval).find()||!uppercase.matcher(passwordval).find()||!digit.matcher(passwordval).find())
+                                    {
+                                        Toast.makeText(getActivity(), "Password must contain one upper case, one lower case and one digit value", Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
 
-                                    profileEdit.putString("name", nameval);
-                                    profileEdit.putInt("age", ageval);
-                                    profileEdit.putString("gender", genderval);
-                                    profileEdit.putFloat("height", heightval);
-                                    profileEdit.putFloat("weight", weightval);
-                                    profileEdit.putString("password", passwordval);
-                                    profileEdit.commit();
-                                    Toast.makeText(getActivity(), "Profile Updated Successfilly", Toast.LENGTH_SHORT).show();
+                                        profileEdit.putString("name", nameval);
+                                        profileEdit.putInt("age", ageval);
+                                        profileEdit.putString("gender", genderval);
+                                        profileEdit.putFloat("height", heightval);
+                                        profileEdit.putFloat("weight", weightval);
+                                        profileEdit.putString("password", passwordval);
+                                        profileEdit.commit();
+                                        Toast.makeText(getActivity(), "Profile Updated Successfilly", Toast.LENGTH_SHORT).show();
+                                    }
 
                                 }
                                 else

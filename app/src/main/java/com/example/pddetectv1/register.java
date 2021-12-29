@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class register extends AppCompatActivity {
     Button submit;
@@ -42,14 +43,65 @@ public class register extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences profileData = getSharedPreferences("profile",MODE_PRIVATE);
                 SharedPreferences.Editor profileEdit = profileData.edit();
+                String nameval,genderval,passwordval;
+                int ageval;
+                float heightval,weightval;
                 try{
-                    profileEdit.putString("name", name.getText().toString());
-                    profileEdit.putInt("age",Integer.parseInt(age.getText().toString()));
-                    profileEdit.putString("gender", gender.getText().toString());
-                    profileEdit.putFloat("height",Float.parseFloat(height.getText().toString()));
-                    profileEdit.putFloat("weight",Float.parseFloat(weight.getText().toString()));
-                    profileEdit.putString("password",passwrd.getText().toString());
-                    profileEdit.commit();
+                    nameval=name.getText().toString();
+                    genderval=gender.getText().toString();
+                    passwordval=passwrd.getText().toString();
+                    ageval=Integer.parseInt(age.getText().toString());
+                    heightval=Float.parseFloat(height.getText().toString());
+                    weightval=Float.parseFloat(weight.getText().toString());
+
+                    Pattern uppercase = Pattern.compile("[A-Z]");
+                    Pattern lowercase = Pattern.compile("[a-z]");
+                    Pattern digit = Pattern.compile("[0-9]");
+
+                    if(genderval.equals(""))
+                    {
+                        Toast.makeText(getApplicationContext(), "Select Gender", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        if(ageval<100 && ageval>20)
+                        {
+                            if(heightval<250&&heightval>100)
+                            {
+                                if(weightval<100&&weightval>20)
+                                {
+                                    if(!lowercase.matcher(passwordval).find()||!uppercase.matcher(passwordval).find()||!digit.matcher(passwordval).find())
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Password must contain one upper case, one lower case and one digit value", Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
+
+                                        profileEdit.putString("name", nameval);
+                                        profileEdit.putInt("age", ageval);
+                                        profileEdit.putString("gender", genderval);
+                                        profileEdit.putFloat("height", heightval);
+                                        profileEdit.putFloat("weight", weightval);
+                                        profileEdit.putString("password", passwordval);
+                                        profileEdit.commit();
+                                        Toast.makeText(getApplicationContext(), "Profile Updated Successfilly", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(), "Enter Proper Weight", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else
+                            {
+                                Toast.makeText(getApplicationContext(), "Enter Proper Height", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), "Enter Proper Age", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                     Intent homeIntent = new Intent(register.this, MainActivity.class);
                     startActivity(homeIntent);
                 } catch (Exception e) {
