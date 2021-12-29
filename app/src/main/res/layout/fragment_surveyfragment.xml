@@ -98,7 +98,6 @@
                     android:fontFamily="@font/doppio_one"
                     android:padding="16dp"
                     android:text="Option1"
-                    android:textAlignment="center"
                     android:textColor="@drawable/textcolor"
                     android:textSize="16sp">
 
@@ -116,7 +115,6 @@
                     android:fontFamily="@font/doppio_one"
                     android:padding="16dp"
                     android:text="Option2"
-                    android:textAlignment="center"
                     android:textColor="@drawable/textcolor"
                     android:textSize="16sp">
 
@@ -133,7 +131,6 @@
                     android:fontFamily="@font/doppio_one"
                     android:padding="16dp"
                     android:text="Option3"
-                    android:textAlignment="center"
                     android:textColor="@drawable/textcolor"
                     android:textSize="16sp">
 
@@ -150,7 +147,6 @@
                     android:fontFamily="@font/doppio_one"
                     android:padding="16dp"
                     android:text="Option4"
-                    android:textAlignment="center"
                     android:textColor="@drawable/textcolor"
                     android:textSize="16sp">
 
