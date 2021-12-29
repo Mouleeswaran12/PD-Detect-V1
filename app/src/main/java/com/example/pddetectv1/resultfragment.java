@@ -57,7 +57,7 @@ public class resultfragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            Toast.makeText(getActivity(), "NEW TAB !", android.widget.Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getActivity(), "NEW TAB !", android.widget.Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -108,6 +108,9 @@ public class resultfragment extends Fragment {
             SharedPreferences scoreRead = getActivity().getSharedPreferences("score", Context.MODE_PRIVATE);
             Float finalScore = scoreRead.getFloat("finalScore",0);
             uprsscore.setText(finalScore.toString());
+            pdgrade.setText(finalSeverity(finalScore));
+
+
         }
     }
 }
