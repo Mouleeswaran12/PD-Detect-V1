@@ -84,6 +84,9 @@ public class register extends AppCompatActivity {
                                         profileEdit.putString("password", passwordval);
                                         profileEdit.commit();
                                         Toast.makeText(getApplicationContext(), "Profile Updated Successfilly", Toast.LENGTH_SHORT).show();
+
+                                        Intent homeIntent = new Intent(register.this, MainActivity.class);
+                                        startActivity(homeIntent);
                                     }
 
                                 }
@@ -102,8 +105,7 @@ public class register extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Enter Proper Age", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    Intent homeIntent = new Intent(register.this, MainActivity.class);
-                    startActivity(homeIntent);
+
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Fill all the details!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
