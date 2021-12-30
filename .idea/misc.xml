@@ -15,6 +15,10 @@
         <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_result.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_splashscreen.xml" value="0.25" />
         <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/activity_survey.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/fragment_homefragment.xml" value="0.11231884057971014" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/fragment_profilefragment.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/fragment_resultfragment.xml" value="0.11231884057971014" />
+        <entry key="..\:/Users/jayab/AndroidStudioProjects/PDDetectV1/app/src/main/res/layout/fragment_surveyfragment.xml" value="0.12158054711246201" />
       </map>
     </option>
   </component>
