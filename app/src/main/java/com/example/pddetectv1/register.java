@@ -64,11 +64,11 @@ public class register extends AppCompatActivity {
                     }
                     else
                     {
-                        if(ageval<100 && ageval>20)
+                        if(ageval<=80 && ageval>=20)
                         {
-                            if(heightval<250&&heightval>100)
+                            if(heightval<=200&&heightval>=120)
                             {
-                                if(weightval<100&&weightval>20)
+                                if(weightval<=120&&weightval>=35)
                                 {
                                     if(!lowercase.matcher(passwordval).find()||!uppercase.matcher(passwordval).find()||!digit.matcher(passwordval).find())
                                     {
@@ -83,7 +83,7 @@ public class register extends AppCompatActivity {
                                         profileEdit.putFloat("weight", weightval);
                                         profileEdit.putString("password", passwordval);
                                         profileEdit.commit();
-                                        Toast.makeText(getApplicationContext(), "Profile Updated Successfilly", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Profile Created Successfilly", Toast.LENGTH_SHORT).show();
 
                                         Intent homeIntent = new Intent(register.this, MainActivity.class);
                                         startActivity(homeIntent);
