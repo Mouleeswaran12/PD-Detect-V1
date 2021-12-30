@@ -140,23 +140,23 @@ public class profilefragment extends Fragment {
                                         profileEdit.putFloat("weight", weightval);
                                         profileEdit.putString("password", passwordval);
                                         profileEdit.commit();
-                                        Toast.makeText(getActivity(), "Profile Updated Successfilly", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Profile Updated Successfilly", Toast.LENGTH_LONG).show();
                                     }
 
                                 }
                                 else
                                 {
-                                    Toast.makeText(getActivity(), "Enter Proper Weight", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Enter Proper Weight", Toast.LENGTH_LONG).show();
                                 }
                             }
                             else
                             {
-                                Toast.makeText(getActivity(), "Enter Proper Height", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Enter Proper Height", Toast.LENGTH_LONG).show();
                             }
                         }
                         else
                         {
-                            Toast.makeText(getActivity(), "Enter Proper Age", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Enter Proper Age", Toast.LENGTH_LONG).show();
                         }
                     }
                 } catch (Exception e) {

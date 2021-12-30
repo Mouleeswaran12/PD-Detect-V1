@@ -92,17 +92,17 @@ public class register extends AppCompatActivity {
                                 }
                                 else
                                 {
-                                    Toast.makeText(getApplicationContext(), "Enter Proper Weight", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Enter Proper Weight", Toast.LENGTH_LONG).show();
                                 }
                             }
                             else
                             {
-                                Toast.makeText(getApplicationContext(), "Enter Proper Height", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Enter Proper Height", Toast.LENGTH_LONG).show();
                             }
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(), "Enter Proper Age", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Enter Proper Age", Toast.LENGTH_LONG).show();
                         }
                     }
 
