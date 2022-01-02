@@ -47,12 +47,12 @@ public class surveyfragment extends Fragment {
     Button Prev, nxt,result;
     RadioGroup selected;
     ProgressBar questionProgress;
-    int n=0;
+    int n;
+    String json;
     JSONObject jsonObject;
     JSONArray jsonArray;
     Integer[] score;
-    int currentProgress=10;
-
+    int currentProgress;
     int totalScore = 36;
 
 
@@ -87,34 +87,34 @@ public class surveyfragment extends Fragment {
         }
     }
 
-    public String loadJSONFromAsset(){
-        String json;
-        try {
-            InputStream is = getActivity().getAssets().open("questions.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ViewGroup surveyroot=(ViewGroup) inflater.inflate(R.layout.fragment_surveyfragment, container, false);
+        n = 0;
+        currentProgress = 0;
+
+        json = new String("{\"questions\": [\n" +
+                "{\"question\": \"Cognitive Impairment\", \"choices\": [\"No Sign\", \"Cognitive dysfunction, mild interference with normal activities\", \"Cognitive dysfunction, moderate interference with normal activities\", \"Cognitive dysfunction precludes patient\\u2019s normal activities\"]},\n" +
+                "{\"question\": \"Mood Disorders\", \"choices\": [\"No Sign\", \"Episodes of depressed mood, not lasting more than a day\", \"Depressed mood sustain over days, minimal interference with normal activities\", \"Depressed mood precludes patient\\u2019s normal activities\"]}, \n" +
+                "{\"question\": \"Sleep Problems\", \"choices\": [\"No Sign\", \"Sleep problems, trouble getting a full night of sleep\", \"Sleep problems, but sleeps more than half the night\", \"Do not sleep for most of the night \"]}, \n" +
+                "{\"question\": \"Dizziness, Fatigue\", \"choices\": [\"No Sign\", \"Feelings occur, no troubles doing things \", \"Feelings occur, some troubles doing things \", \"Feelings preclude doing things\"]}, \n" +
+                "{\"question\": \"Tremor\", \"choices\": [\"No Sign\", \"Tremor occurs, No trouble in doing any activities\", \"Tremor occurs, problems with only a few activities \", \"Tremor occurs, problems with many or all activities \"]}, \n" +
+                "{\"question\": \"Freezing of Gait\", \"choices\": [\"No Sign\", \"Freezing on starting of walking\", \"Freezing once during walking\", \"Freezing multiple times during walking\"]}, \n" +
+                "{\"question\": \"Rigidity\", \"choices\": [\"No Sign\", \"Rigidity detected, but full ROM is easily achieved\", \"Rigidity detected, and full ROM is achieved with effort\", \"Rigidity detected, and full ROM is not achieved\"]}, \n" +
+                "{\"question\": \"Gait\", \"choices\": [\"No Sign\", \"Independent walking with minor gait impairment. \", \"Requires an assistance device for safe walking.\", \"Cannot walk at all or only with another person\\u2019s assistance\"]}, \n" +
+                "{\"question\": \"Postural Stability\", \"choices\": [\"No Sign\", \"Mildly Unstable\", \"Moderately Unstable\", \"Unstable\"]}, \n" +
+                "{\"question\": \"Slowed Movement\", \"choices\": [\"No Sign\", \"Mild global slowness and poverty of spontaneous movements.\", \"Moderate global slowness and poverty of spontaneous movements.  \", \" Slight global slowness and poverty of spontaneous movements. \"]}, \n" +
+                "{\"question\": \"Loss of Smell\", \"choices\": [\"No Sign\", \"Slight\", \"Moderate\", \"No smell detected\"]}, \n" +
+                "{\"question\": \"Low or Hoarse Voice\", \"choices\": [\"No Sign\", \"Slightly low, not hoarse\", \"Slightly hoarse\", \"More hoarseness\"]}\n" +
+                "]\n" +
+                "}");
 
         selected =(RadioGroup) surveyroot.findViewById(R.id.answergroup);
         result = (Button) surveyroot.findViewById(R.id.button3);
         questionProgress =(ProgressBar) surveyroot.findViewById(R.id.progressBar);
         questionProgress.setMax(120);
-        questionProgress.setProgress(currentProgress);
         result.setVisibility(View.INVISIBLE);
         score = new Integer[12];
         for(int i=0;i<12;i++)
@@ -132,14 +132,7 @@ public class surveyfragment extends Fragment {
         Prev = (Button) surveyroot.findViewById(R.id.button);
         nxt = (Button) surveyroot.findViewById(R.id.button2);
 
-        try{
-            jsonObject = new JSONObject(loadJSONFromAsset());
-            jsonArray = jsonObject.getJSONArray("questions");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        questionCall(0);
+        questionCall(n);
 
         nxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,15 +140,22 @@ public class surveyfragment extends Fragment {
                 updateScore();
             }
         });
+
         Prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 n = n-1;
                 currentProgress = (n+1)*10;
-                questionProgress.setProgress(currentProgress);
-                questionCall(n);
+                questionProgress.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        questionProgress.setProgress(currentProgress);
+                        questionCall(n);
+                    }
+                });
             }
         });
+
         result.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,12 +187,16 @@ public class surveyfragment extends Fragment {
 
         if(selectedid==-1)
         {
-            Toast.makeText(getActivity(), "Select any of the option", Toast.LENGTH_SHORT).show();
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getActivity(), "Select any of the option", Toast.LENGTH_SHORT).show();
+                }
+            });
             return false;
         }
         else {
             currentProgress = (n+1)*10;
-            questionProgress.setProgress(currentProgress);
             if (selectedid == opt1.getId())
                 score[n] = 0;
             else if (selectedid == opt2.getId())
@@ -207,51 +211,79 @@ public class surveyfragment extends Fragment {
                 n = n + 1;
                 questionCall(n);
             }
+
+            questionProgress.post(new Runnable() {
+                @Override
+                public void run() {
+                    questionProgress.setProgress(currentProgress);
+                }
+            });
             return true;
         }
     }
 
     public void questionCall(int n)
     {
-        selected.clearCheck();
-        question.setText("");
-        opt1.setText("");
-        opt2.setText("");
-        opt3.setText("");
-        opt4.setText("");
+        questionProgress.post(new Runnable() {
+            @Override
+            public void run() {
+                questionProgress.setProgress(currentProgress);
+            }
+        });
 
-        try {
-            JSONObject currentObj = jsonArray.getJSONObject(n);
-            question.setText(currentObj.getString("question"));
-            JSONArray choices = currentObj.getJSONArray("choices");
-            for(int i=0; i<4; i++){
-                options.get(i).setText(choices.getString(i));
-            }
-            if (score[n] != -1){
-                options.get(score[n]).setChecked(true);
-            }
-        } catch (JSONException e) {
+        try{
+            jsonObject = new JSONObject(json);
+            jsonArray = jsonObject.getJSONArray("questions");
+        } catch (Exception e){
             e.printStackTrace();
         }
 
-        if(n==0)
-        {
-            Prev.setEnabled(false);
-        }
-        else
-        {
-            Prev.setEnabled(true);
-        }
-        if(n==score.length-1)
-        {
-            nxt.setVisibility(View.INVISIBLE);
-            result.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            nxt.setVisibility(View.VISIBLE);
-            result.setVisibility(View.INVISIBLE);
-        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                RadioButton currentOpt;
+                selected.clearCheck();
+                question.setText("");
+                opt1.setText("");
+                opt2.setText("");
+                opt3.setText("");
+                opt4.setText("");
 
+                try {
+                    JSONObject currentObj = jsonArray.getJSONObject(n);
+                    question.setText(currentObj.getString("question"));
+                    JSONArray choices = currentObj.getJSONArray("choices");
+                    opt1.setText(choices.getString(0));
+                    opt2.setText(choices.getString(1));
+                    opt3.setText(choices.getString(2));
+                    opt4.setText(choices.getString(3));
+
+                    if (score[n] != -1){
+                        options.get(score[n]).setChecked(true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if(n==0)
+                {
+                    Prev.setEnabled(false);
+                }
+                else
+                {
+                    Prev.setEnabled(true);
+                }
+                if(n==score.length-1)
+                {
+                    nxt.setVisibility(View.INVISIBLE);
+                    result.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    nxt.setVisibility(View.VISIBLE);
+                    result.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
 }
